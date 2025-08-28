@@ -1,0 +1,49 @@
+{{/* Social Media Meta Tags */}}
+
+{{/* Open Graph Meta Tags */}}
+<meta property="og:title" content="{{ if .Params.heading }}{{ .Params.heading }}{{ else }}{{ .Title }}{{ end }}" />
+<meta property="og:description" content="{{ .Description | default .Site.Params.Description }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+
+{{/* Preview Image for Social Media */}}
+{{ if .Params.preview_image }}
+  <meta property="og:image" content="{{ .Params.preview_image | absURL }}" />
+  <meta property="og:image:alt" content="{{ .Params.preview_image_alt | default .Title }}" />
+{{ else if .Site.Params.default_preview_image }}
+  <meta property="og:image" content="{{ .Site.Params.default_preview_image | absURL }}" />
+  <meta property="og:image:alt" content="{{ .Site.Title }}" />
+{{ end }}
+
+{{/* Twitter Card Meta Tags */}}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ if .Params.heading }}{{ .Params.heading }}{{ else }}{{ .Title }}{{ end }}" />
+<meta name="twitter:description" content="{{ .Description | default .Site.Params.Description }}" />
+
+{{ if .Params.preview_image }}
+  <meta name="twitter:image" content="{{ .Params.preview_image | absURL }}" />
+  <meta name="twitter:image:alt" content="{{ .Params.preview_image_alt | default .Title }}" />
+{{ else if .Site.Params.default_preview_image }}
+  <meta name="twitter:image" content="{{ .Site.Params.default_preview_image | absURL }}" />
+  <meta name="twitter:image:alt" content="{{ .Site.Title }}" />
+{{ end }}
+
+{{ if .Site.Params.twitter_handle }}
+  <meta name="twitter:site" content="@{{ .Site.Params.twitter_handle }}" />
+{{ end }}
+
+{{/* Article specific meta tags */}}
+{{ if .IsPage }}
+  {{ if .Params.date }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" />
+  {{ end }}
+  {{ if .Params.tags }}
+    {{ range .Params.tags }}
+      <meta property="article:tag" content="{{ . }}" />
+    {{ end }}
+  {{ end }}
+  {{ if .Params.author }}
+    <meta property="article:author" content="{{ .Params.author }}" />
+  {{ end }}
+{{ end }}

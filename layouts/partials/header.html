@@ -11,6 +11,8 @@
       content="{{ .Description | default .Site.Params.Description }}"
     />
 
+    {{ partial "social-meta.html" . }}
+
     {{ if not .Site.Params.disableWebFonts }}
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:400|Old+Standard+TT:400&display=swap"
